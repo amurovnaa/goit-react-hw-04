@@ -23,13 +23,13 @@ const SearchBar = ({ handleChangeQuery }) => {
         <Form className={s.formContainer}>
           <div className={s.inputWrapper}>
             <label className={s.inputName} htmlFor={keywordId}>
-              Search images
+              Search images:
             </label>
             <Field
               className={s.input}
               name="query"
               id={keywordId}
-              placeholder="Enter a keyword:"
+              placeholder="Enter a keyword"
             />
           </div>
           <button className={s.button} type="submit">
