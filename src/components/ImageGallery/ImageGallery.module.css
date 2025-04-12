@@ -3,7 +3,10 @@
   flex-direction: row;
   gap: 16px;
   flex-wrap: wrap;
-  margin-top: 18px;
   align-items: center;
   justify-content: center;
+  margin-bottom: 16px;
+}
+.list li {
+  cursor: pointer;
 }

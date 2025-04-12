@@ -7,6 +7,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import ImageModal from "./components/ImageModal/ImageModal";
 
 function App() {
   const [data, setData] = useState({ results: [], total_pages: 1 });
@@ -14,6 +15,8 @@ function App() {
   const [page, setPage] = useState(1);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [modalImageUrl, setModalImageUrl] = useState("");
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -57,16 +60,35 @@ function App() {
   const handleLoadMore = () => {
     setPage(nextPage);
   };
+
+  const openModal = (modalImageUrl) => {
+    setModalImageUrl(modalImageUrl);
+    setIsOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setModalImageUrl("");
+    setIsOpenModal(false);
+  };
   return (
     <>
       <SearchBar handleChangeQuery={handleChangeQuery} />
       <Toaster position="top-right" />
 
-      {data.results.length > 0 && <ImageGallery results={data.results} />}
+      {data.results.length > 0 && (
+        <ImageGallery results={data.results} onCardClick={openModal} />
+      )}
       {isError && <ErrorMessage message={isError} />}
       {isLoading && <Loader />}
       {changeTotalPages > -1 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMore} />
+      )}
+      {isOpenModal && (
+        <ImageModal
+          imageUrl={modalImageUrl}
+          results={data.results}
+          closeModal={closeModal}
+        />
       )}
     </>
   );

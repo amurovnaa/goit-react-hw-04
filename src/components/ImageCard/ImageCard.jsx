@@ -1,4 +1,4 @@
-const ImageCard = ({ urls, alt_description }) => {
+const ImageCard = ({ urls, alt_description, onClick }) => {
   return (
     <div>
       <img
@@ -6,6 +6,7 @@ const ImageCard = ({ urls, alt_description }) => {
         alt={alt_description}
         width="270px"
         height="170px"
+        onClick={onClick}
       />
     </div>
   );

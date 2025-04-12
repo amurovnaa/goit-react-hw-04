@@ -1,7 +1,10 @@
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
+import { useId } from "react";
+import s from "./SearchBar.module.css";
 
 const SearchBar = ({ handleChangeQuery }) => {
+  const keywordId = useId();
   const initialValues = {
     query: "",
   };
@@ -15,14 +18,26 @@ const SearchBar = ({ handleChangeQuery }) => {
     options.resetForm();
   };
   return (
-    <section>
+    <header className="section">
       <Formik onSubmit={handleSubmit} initialValues={initialValues}>
-        <Form>
-          <Field name="query" />
-          <button type="submit">Search</button>
+        <Form className={s.formContainer}>
+          <div className={s.inputWrapper}>
+            <label className={s.inputName} htmlFor={keywordId}>
+              Search images
+            </label>
+            <Field
+              className={s.input}
+              name="query"
+              id={keywordId}
+              placeholder="Enter a keyword:"
+            />
+          </div>
+          <button className={s.button} type="submit">
+            Search
+          </button>
         </Form>
       </Formik>
-    </section>
+    </header>
   );
 };
 export default SearchBar;
